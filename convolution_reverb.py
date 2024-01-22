@@ -1,15 +1,17 @@
 import matplotlib.pyplot as plt
-import numpy as np
 from scipy.signal import convolve
 from read_wav import read_wav, write_wav
 
 
+# normalize signal to maximum amplitude
 def normalize(ys, amp=1.0):
     high, low = abs(max(ys)), abs(min(ys))
     return amp * ys / max(high, low)
 
 
 if __name__ == '__main__':
+    # reading files
+
     sample_in = 'phone'
     reverb_in = 'impulse'
     N = 200000
@@ -29,12 +31,18 @@ if __name__ == '__main__':
     reverb_data = normalize(reverb_data)
     reverb_rate = reverb['rate']
 
+    # convolution
+
     output_signal = normalize(convolve(sample_data, reverb_data, method='fft'))
+
+    # write file
 
     write_wav('output/' + sample_in + '_conv', output_signal, sample_rate)
     new_signal = read_wav('output/' + sample_in + '_conv.wav')
     new_signal_data = normalize(new_signal['data'])
     new_signal_rate = new_signal['rate']
+
+    # plot the results
 
     fig, axs = plt.subplots(nrows=3, ncols=1)
     fig.suptitle('Convolution reverb')
