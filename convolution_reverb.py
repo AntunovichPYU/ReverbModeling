@@ -12,7 +12,7 @@ def normalize(ys, amp=1.0):
 if __name__ == '__main__':
     # reading files
 
-    sample_in = 'phone'
+    sample_in = 'trumpet'
     reverb_in = 'impulse'
     N = 200000
 
@@ -31,9 +31,15 @@ if __name__ == '__main__':
     reverb_data = normalize(reverb_data)
     reverb_rate = reverb['rate']
 
+    # values
+
+    output_gain = 1
+    dry = 1
+    wet = 1
+
     # convolution
 
-    output_signal = normalize(convolve(sample_data, reverb_data, method='fft'))
+    output_signal = output_gain * normalize(convolve(sample_data * dry, reverb_data * wet, method='fft'))
 
     # write file
 

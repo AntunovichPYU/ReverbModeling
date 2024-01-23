@@ -45,7 +45,7 @@ def delay(input_signal, delay, gain=1):
 if __name__ == '__main__':
     # read file
 
-    sample_in = 'phone'
+    sample_in = 'trumpet'
     N = 200000
 
     sample = read_wav('input/' + sample_in + '.wav')
@@ -67,6 +67,10 @@ if __name__ == '__main__':
     allpass_delay = 286
     allpass_g = 0.7
 
+    output_gain = 0.075
+    dry = 1
+    wet = 1
+
     early_reflections = np.zeros(sample_data.size)
     combs_out = np.zeros(sample_data.size)
 
@@ -84,7 +88,8 @@ if __name__ == '__main__':
 
     reverb = delay(reverb, rev_to_er_delay)
 
-    output_signal = 0.075 * (early_reflections + reverb)
+    output_signal = (early_reflections + reverb)
+    output_signal = output_gain * (output_signal * wet + np.concatenate((sample_data, np.zeros(rev_to_er_delay))) * dry)
 
     # write file
 
