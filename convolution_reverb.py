@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from scipy.signal import convolve
-from read_wav import read_wav, write_wav
+from in_out import read_wav, write_wav
 
 
 # normalize signal to maximum amplitude
@@ -12,7 +12,7 @@ def normalize(ys, amp=1.0):
 if __name__ == '__main__':
     # reading files
 
-    sample_in = 'trumpet'
+    sample_in = 'phone'
     reverb_in = 'impulse'
     N = 200000
 

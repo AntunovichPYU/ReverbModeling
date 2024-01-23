@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.signal as signal
-from read_wav import read_wav, write_wav
+from in_out import read_wav, write_wav
 
 
 def normalize(ys, amp=1.0):
@@ -45,7 +45,7 @@ def delay(input_signal, delay, gain=1):
 if __name__ == '__main__':
     # read file
 
-    sample_in = 'trumpet'
+    sample_in = 'phone'
     N = 200000
 
     sample = read_wav('input/' + sample_in + '.wav')
